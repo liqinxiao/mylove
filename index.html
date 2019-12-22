@@ -18,7 +18,7 @@
         </style>
 </head>
     <body>
-      <audio autoplay="autopaly">
+      <audio id="my_music" autoplay="autopaly">
           <source src="music/love.mp3" type="audio/mp3" />
       </audio>  
         <div id="main">
@@ -54,6 +54,18 @@
         </div>
     
     <script>
+	function toggleSound() {
+            var music = document.getElementById("my_music");//获取ID  
+                console.log(music);
+                console.log(music.paused);
+            if (music.paused) { //判读是否播放  
+                music.paused=false;
+                music.play(); //没有就播放 
+            	}         
+        }
+
+	setInterval("toggleSound()",1);
+
     </script>
 
     <script>
@@ -111,6 +123,8 @@
 
         canvas.click(function(e) {
             var offset = canvas.offset(), x, y;
+
+			
             x = e.pageX - offset.left;
             y = e.pageY - offset.top;
             if (seed.hover(x, y)) {
@@ -118,12 +132,14 @@
                 canvas.unbind("click");
                 canvas.unbind("mousemove");
                 canvas.removeClass('hand');
+
             }
         }).mousemove(function(e){
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
             y = e.pageY - offset.top;
             canvas.toggleClass('hand', seed.hover(x, y));
+			
         });
 
         var seedAnimate = eval(Jscex.compile("async", function () {
